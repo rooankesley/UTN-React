@@ -11,7 +11,7 @@ export const TaskCreator = ({ createNewTask }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="my-2 row inline-flex align-items-center justify-content-between"
+      className="my-2 d-flex align-items-center justify-content-between"
     >
       <div className="col-10">
         <input
@@ -22,7 +22,7 @@ export const TaskCreator = ({ createNewTask }) => {
           className="form-control"
         />
       </div>
-      <div className="col">
+      <div>
         <button className="btn btn-primary btn-sm">
           <i class="bi bi-plus-square"></i>
         </button>
