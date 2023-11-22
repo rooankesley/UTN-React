@@ -15,7 +15,7 @@ export const TaskTable = ({
   };
 
   return (
-    <table className="table table-dark table-striped table-bordered border-secondary">
+    <table className="table table-striped table-bordered">
       <thead>
         <tr>
           <th className="table-primary">{tableName}</th>

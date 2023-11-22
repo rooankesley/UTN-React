@@ -4,6 +4,7 @@ import { TaskCreator } from "./components/TaskCreator";
 import { TaskTable } from "./components/TaskTable";
 import { VisibilityControl } from "./components/VisibilityControl";
 import { Container } from "./components/Container";
+import { MenuAside } from "./components/MenuAside";
 
 function App() {
   const [tasksItems, setTaskItems] = useState([]);
@@ -38,7 +39,8 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasksItems));
   }, [tasksItems]);
   return (
-    <main className="bg-dark vh-100 text-white">
+    <main className="d-flex vh-100">
+      <MenuAside />
       <Container>
         <TaskCreator createNewTask={createNewTask} />
         <TaskTable
