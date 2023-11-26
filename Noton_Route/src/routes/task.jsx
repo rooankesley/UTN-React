@@ -121,25 +121,16 @@ export default function Task() {
   }, [taskId]);
   return (
     <div id="task">
-      <div id="taskImage">
-        <img
-          id="taskImageBackground"
-          key={task.image}
-          src={task.image || null}
-        />
-      </div>
-
-      <div id="taskInfo">
-        <h1>
+      <div id="taskInfo" className="flex justify-between px-5 py-2">
+        <h1 className="font-sm font-bold">
           {task.name ? <>{task.name}</> : <i>No Name</i>}{" "}
-          <Favorite task={task} />
         </h1>
-
-        {task.notes && <p>{task.notes}</p>}
-
-        <div>
+        <div className="flex justify-between items-center w-24">
+          <Favorite task={task} />
           <Form action="edit">
-            <button type="submit">Edit</button>
+            <button type="submit" className="px-1 rounded hover:bg-gray-300">
+              Edit
+            </button>
           </Form>
           <Form
             method="post"
@@ -150,9 +141,23 @@ export default function Task() {
               }
             }}
           >
-            <button type="submit">Delete</button>
+            <button type="submit" className="px-1 rounded hover:bg-gray-300">
+              Delete
+            </button>
           </Form>
         </div>
+      </div>
+      <div
+        id="taskImage"
+        style={{
+          backgroundImage: `url(${task.image || ""})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        className="h-52"
+      >
+        {task.notes && <p>{task.notes}</p>}
       </div>
       <div
         id="tasksManager"
@@ -188,6 +193,7 @@ function Favorite({ task }) {
         name="favorite"
         value={favorite ? "false" : "true"}
         aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
+        className="text-yellow-500"
       >
         {favorite ? "★" : "☆"}
       </button>
