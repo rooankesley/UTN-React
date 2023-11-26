@@ -156,13 +156,17 @@ export default function Task() {
           backgroundRepeat: "no-repeat",
         }}
         className="h-52"
-      >
-        {task.notes && <p>{task.notes}</p>}
-      </div>
+      ></div>
       <div
         id="tasksManager"
-        className="bg-gray-800 text-gray-100 flex items-center justify-center px-5"
+        className="text-gray-500 flex flex-col items-center justify-center px-5"
       >
+        <div
+          className="w-full h-24 flex items-center p-4 text-sm text-gray-800 rounded-lg bg-gray-50 mt-2"
+          role="alert"
+        >
+          {task.notes && <p>{task.notes}</p>}
+        </div>
         <div className="container flex flex-col max-w-xl">
           <TodoInput addTodo={addTodo} />
           <TodoList
