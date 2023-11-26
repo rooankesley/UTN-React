@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html {
     box-sizing: border-box;
   }
@@ -29,7 +33,7 @@ html {
   }
   textarea,
   input,
-  button {
+  #taskInfo button {
     font-size: 1rem;
     font-family: inherit;
     border: none;
@@ -261,7 +265,6 @@ html {
   }
   
   #task {
-    /*max-width: 40rem;*/
     display: flex;
     height: 250px;
   }
@@ -300,7 +303,7 @@ html {
     text-decoration: underline;
   }
   
-  #task img {
+  #taskImageBackground {
     width: 100%;
     background: #c8c8c8;
     border-radius: 1.5rem;
@@ -415,4 +418,11 @@ html {
   align-items: center;
   align-content: space-between;
   justify-content: space-between;
+}
+#tasksManager {
+  position: absolute;
+  top: 30%;
+  width: 75dvw;
+  min-height: 50dvh;
+  max-height: 100dvh;
 }
