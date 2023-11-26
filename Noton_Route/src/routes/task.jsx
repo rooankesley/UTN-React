@@ -1,10 +1,13 @@
-import { Form, useLoaderData, useFetcher } from "react-router-dom";
+import { Form, useLoaderData, useFetcher, useParams } from "react-router-dom";
 import { getTask, updateTask } from "../tasks";
 import { TodoInput } from "../component/TodoInput";
 import { TodoList } from "../component/TodoList";
 import { useState, useEffect } from "react";
 
-const STORAGE_KEY = "todos";
+const generateRandomId = () => {
+  // Generate a random 10-digit number
+  return Math.floor(1000000000 + Math.random() * 9000000000);
+};
 
 export async function loader({ params }) {
   const task = await getTask(params.taskId);
@@ -26,6 +29,9 @@ export async function action({ request, params }) {
 
 export default function Task() {
   const { task } = useLoaderData();
+  const { taskId } = useParams();
+
+  const STORAGE_KEY = `todos_${taskId}`;
 
   const loadTodosFromLocalStorage = () => {
     const storedTodos = localStorage.getItem(STORAGE_KEY);
@@ -49,10 +55,8 @@ export default function Task() {
   };
 
   const addTodo = (title) => {
-    const lastId = todos.length > 0 ? todos[todos.length - 1].id : 1;
-
     const newTodo = {
-      id: lastId + 1,
+      id: `${taskId}_${generateRandomId()}`,
       title,
       completed: false,
     };
@@ -110,6 +114,11 @@ export default function Task() {
     }
   }, [activeFilter, todos]);
 
+  useEffect(() => {
+    setTodos(loadTodosFromLocalStorage());
+    setFilteredTodos(loadTodosFromLocalStorage());
+    setActiveFilter("all");
+  }, [taskId]);
   return (
     <div id="task">
       <div id="taskImage">
