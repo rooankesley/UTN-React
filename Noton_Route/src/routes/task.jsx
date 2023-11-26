@@ -4,6 +4,8 @@ import { TodoInput } from "../component/TodoInput";
 import { TodoList } from "../component/TodoList";
 import { useState, useEffect } from "react";
 
+const STORAGE_KEY = "todos";
+
 export async function loader({ params }) {
   const task = await getTask(params.taskId);
   if (!task) {
@@ -25,32 +27,26 @@ export async function action({ request, params }) {
 export default function Task() {
   const { task } = useLoaderData();
 
-  const [todos, setTodos] = useState([
+  const loadTodosFromLocalStorage = () => {
+    const storedTodos = localStorage.getItem(STORAGE_KEY);
+    return storedTodos ? JSON.parse(storedTodos) : defaultTodos;
+  };
+
+  const defaultTodos = [
     {
       id: 1,
-      title: "Watch the next Marvel Movie",
+      title: "To-Do Task Example",
       completed: false,
     },
-    {
-      id: 2,
-      title: "Record the next Video",
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "Wash the dishes",
-      completed: false,
-    },
-    {
-      id: 4,
-      title: "Study 2 hours",
-      completed: false,
-    },
-  ]);
+  ];
 
+  const [todos, setTodos] = useState(loadTodosFromLocalStorage);
   const [activeFilter, setActiveFilter] = useState("all");
-
   const [filteredTodos, setFilteredTodos] = useState(todos);
+
+  const updateLocalStorage = (newTodos) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newTodos));
+  };
 
   const addTodo = (title) => {
     const lastId = todos.length > 0 ? todos[todos.length - 1].id : 1;
@@ -61,10 +57,9 @@ export default function Task() {
       completed: false,
     };
 
-    const todoList = [...todos];
-    todoList.push(newTodo);
-
-    setTodos(todoList);
+    const updatedTodos = [...todos, newTodo];
+    setTodos(updatedTodos);
+    updateLocalStorage(updatedTodos);
   };
 
   const handleSetComplete = (id) => {
@@ -76,15 +71,19 @@ export default function Task() {
     });
 
     setTodos(updatedList);
+    updateLocalStorage(updatedList);
   };
+
   const handleDelete = (id) => {
     const updatedList = todos.filter((todo) => todo.id !== id);
     setTodos(updatedList);
+    updateLocalStorage(updatedList);
   };
 
   const handleClearComplete = () => {
     const updatedList = todos.filter((todo) => !todo.completed);
     setTodos(updatedList);
+    updateLocalStorage(updatedList);
   };
 
   const showAllTodos = () => {
@@ -103,10 +102,10 @@ export default function Task() {
     if (activeFilter === "all") {
       setFilteredTodos(todos);
     } else if (activeFilter === "active") {
-      const activeTodos = todos.filter((todo) => todo.completed === false);
+      const activeTodos = todos.filter((todo) => !todo.completed);
       setFilteredTodos(activeTodos);
     } else if (activeFilter === "completed") {
-      const completedTodos = todos.filter((todo) => todo.completed === true);
+      const completedTodos = todos.filter((todo) => todo.completed);
       setFilteredTodos(completedTodos);
     }
   }, [activeFilter, todos]);
