@@ -1,10 +1,7 @@
 export default function Index() {
   return (
-    <p id="zero-state">
-      This is a demo for React Router.
-      <br />
-      Check out{" "}
-      <a href="https://reactrouter.com">the docs at reactrouter.com</a>.
-    </p>
+    <div className="flex items-center justify-center w-full h-full bg-gray-300">
+      <img src="noton_logo.png" alt="" />
+    </div>
   );
 }
