@@ -167,24 +167,31 @@ export default function Root() {
           </div>
         </div>
         <NavLink
-          className="flex items-center justify-center w-full h-16 mt-auto bg-gray-200 hover:bg-gray-300"
+          className="flex items-center justify-center w-full h-16 mt-auto bg-gray-20 hover:bg-gray-300"
           to="#"
         >
+          <div
+            className="w-8 h-8 rounded-full"
+            style={{
+              backgroundImage: `url('https://i.pravatar.cc/150?img=50')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          ></div>
+          <span className="ml-2 text-sm font-medium">Oliveira Rooan</span>
           <svg
-            className="w-6 h-6 stroke-current"
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
             viewBox="0 0 24 24"
-            stroke="currentColor"
+            fill="currentColor"
+            className="w-6 h-6"
           >
             <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              fillRule="evenodd"
+              d="M11.47 4.72a.75.75 0 011.06 0l3.75 3.75a.75.75 0 01-1.06 1.06L12 6.31 8.78 9.53a.75.75 0 01-1.06-1.06l3.75-3.75zm-3.75 9.75a.75.75 0 011.06 0L12 17.69l3.22-3.22a.75.75 0 111.06 1.06l-3.75 3.75a.75.75 0 01-1.06 0l-3.75-3.75a.75.75 0 010-1.06z"
+              clipRule="evenodd"
             />
           </svg>
-          <span className="ml-2 text-sm font-medium">Account</span>
         </NavLink>
       </nav>
       <div
